@@ -1,0 +1,27 @@
+﻿@model MindfireSolutions.ViewModel.VMAllBlog
+@{
+    ViewBag.Title = "Chart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" id="MyGoogleChart">
+    <div class="col-sm-3 col-xs-1" id="SideNav">
+        @Html.Partial("_SideBar", Model)
+    </div>
+    <div class="col-sm-9 col-xs-11">
+        <div class="margin-top20">
+            <div class="container">
+                <section>
+                    <div class="well bs-component">
+                        <div class="box-header with-border">
+                            <h3 class="box-title custom-heading">Blog wise Graph</h3>
+                        </div>
+                        <div class="box-body">
+                                <div id="GraphId" style="width: 100%;min-height:100%; margin:auto;"></div>
+                        </div><!-- /.box-body -->
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

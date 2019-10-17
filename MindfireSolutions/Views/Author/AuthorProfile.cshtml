@@ -1,0 +1,112 @@
+﻿@model MindfireSolutions.ViewModel.VMAuthor
+@using MindfireSolutions.Custom
+@{
+    ViewBag.Title = "AuthorProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-xs-3" id="SideNav">
+        @Html.Partial("_SideBar", Model)
+    </div>
+
+    <div class="col-xs-9" id="ProfileContainer">
+        <div class="container">
+            <div class="col-sm-8">
+                <div class="margin-top20 margin-left30">
+                    <div class="row">
+                        <label class="h3">@Model.Name</label><span class="glyphicon glyphicon-map-marker pull-right">Bhubaneswar,India</span>
+                        <div class="row">
+                            <label class="text-primary">Blogger</label>
+                        </div>
+                    </div>
+                    <div class="row margin-top20">
+                        <label><i class="fa fa-smile-o text-danger"></i> RANKINGS</label>
+                        <div class="row">
+                            <label class="label label-warning">@Model.Rank</label>
+                        </div>
+                    </div>
+                    <div class="row margin-top20">
+                        <label><i class="fa fa-user-circle-o text-primary"></i> About</label>
+                        <div class="row margin-top20">
+                            <label class="margin-left30">Name:<span> @Model.Name </span></label>
+                        </div>
+                        <div class="row margin-top20">
+                            <label class="margin-left30">Email: @Model.Email</label>
+                        </div>
+                        <div class="row margin-top20">
+                            <label class="margin-left30">Phone:<span> @Model.Mobile </span></label>
+                        </div>
+                    </div>
+                    <div class="row margin-top20">
+                        <label><i class="fa fa-info-circle text-primary"></i> Basic Information</label>
+                        <div class="row margin-top20">
+                            <label class="margin-left30">Birthday:<span>@Model.DOB</span></label>
+                        </div>
+                        <div class="row margin-top20">
+                            <label class="margin-left30">Gender:<span>@Model.Gender</span></label>
+                        </div>
+                    </div>
+                    <div class="row margin-top mar-bottom20">
+                        <label><i class="fa fa-address-card text-success"></i> Accounts</label>
+                        <div class="row margin-top20">
+                            <a href="/Author/EditProfile" class="margin-left30">Update Details</a>
+                        </div>
+                        <div class="row margin-top20">
+                            <a href="#" class="margin-left30">Hide your Account</a>
+                        </div>
+                        <div class="row margin-top20">
+                            <a href="/Author/Delete" class="margin-left30" onclick="return confirm('Are you sure want to Delete your Account ?')">Delete Account</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="margin-top20">
+                    <div class="row">
+                        @Html.Image(Model.UserImage, "Img", "ProfileImage")
+                    </div>
+                    <div class="row">
+                        <label class="text-primary margin-top20 pull-right h4">About @Model.Name</label>
+                        <hr />
+                        <div class="clearfix">
+                        </div>
+                        <div class="row">
+                            <h5 class="pull-right h5">@Model.Description .</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="text-primary margin-top20 pull-right h4">WORK</label>
+                        <hr />
+                        <div class="clearfix">
+                        </div>
+                        @foreach (var item in Model.Company)
+                        {
+                            <div class="row">
+                                <label class="h5 pull-right">@item</label>
+                            </div>
+                        }
+
+                    </div>
+
+                    <div class="row mar-bottom20">
+                        <label class="text-primary margin-top20 pull-right h4">Skills</label>
+                        <hr />
+                        <div class="clearfix">
+                        </div>
+                        @foreach (var item in Model.Skills)
+                        {
+                            <div class="row">
+                                <label class="h5 pull-right">@item</label>
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

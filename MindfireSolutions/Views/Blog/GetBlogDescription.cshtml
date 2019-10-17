@@ -1,0 +1,146 @@
+﻿@model MindfireSolutions.ViewModel.VMBlogDescription
+@using MindfireSolutions.Custom
+@{
+    ViewBag.Title = "BlogDen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8 topic-background">
+            <div class="row mar-bottom20 margin-top20">
+                <h2 class="text-primary">@Model.Blogs.Title</h2>
+                <h5 class="blog-info"><span><i class="fa fa-clock-o text-warning" aria-hidden="true"></i></span>   Post By @Model.Users.Name,@Model.Blogs.CreationTime</h5>
+            </div>
+            <div class="container">
+                @Html.Raw(System.Web.HttpUtility.HtmlDecode(Model.Blogs.Description))
+
+            </div>
+
+            <hr />
+            <div class="row">
+                <div class="col-sm-6">
+                    <label class="pull-left h5">
+                        <button type="button" class="text-black astext" id="LikedPost" data-toggle="tooltip" data-placement="top" title="Like"><span class="h3 padding-right like"><i class="fa fa-thumbs-up" aria-hidden="true"></i></span><span id="TotalLike">@Model.LikesCount</span></button>
+                        <button type="button" class="text-black astext" id="DislikedPost" data-toggle="tooltip" data-placement="top" title="Dislike"><span class="h3 padding-right dislike"><i class="fa fa-thumbs-down" aria-hidden="true"></i></span><span id="TotalDislike">@Model.DislikesCount</span></button>
+                        <button type="button" class="text-black astext" id="SpamedPost" data-toggle="tooltip" data-placement="top" title="Spam"><span class="h3 padding-right spam"><i class="fa fa-ban" aria-hidden="true"></i></span><span id="TotalSpam">@Model.SpamCount</span></button>
+                    </label>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row" data-andown="fadeIn" data-animation="animation">
+                        <div class="col-sm-12 text-center">
+                            <ul class="social-network social-circle pull-right">
+                         
+                                <li><a href="https://www.facebook.com/Mindfire-Solutions-559849804098764/" target="_blank" class="icoFacebook fb-color" title="Share in Facebook"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="https://twitter.com/mindfires?lang=en" class="icoTwitter twitter-color" target="_blank" title="Share in Twitter"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="http://www.mindfiresolutions.com/google-api-integration-maps-api-integration.htm" target="_blank" class="icoGoogle google-color" title="Share in Google"><i class="fa fa-google"></i></a></li>
+                                <li><a href="https://in.linkedin.com/company/mindfire-solutions" class="icoLinkedin linkedin-color" target="_blank" title="Share in Linkedin"><i class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h4>Leave a Comment</h4>
+            @using (Html.BeginForm("SaveBlogComments", "Blog", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "SubmitComments" }))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="ParentID" value="null" />
+                <input type="hidden" name="BlogId" value="@Model.Blogs.BlogId" id="BlogIdHidden"/>
+                <div class="form-group">
+                    <textarea name="Comments" rows="7" cols="80"></textarea>
+                </div>
+                        <button type="submit" id="SubmitComment" class="btn btn-primary">Submit</button>
+                        <a href="/Blog/SaveBlogComments" id="MyBlogComment"></a>
+            }
+            <div>
+                <p><span class="badge margin-top2">@Model.Blogcomments.Count()</span> Comments:</p><br>
+                @foreach (var item in Model.Blogcomments)
+                {
+                    if (item.ParentId == null)
+                    {
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <img class="img-circle" id="ImageView" src="~/Images/ProfileImages/default.png" alt="Avatar" />
+                            </div>
+                            <div class="col-sm-8">
+                                <h4 class="align-bottom">@item.CreatedBy<small>@item.CreationTime</small></h4>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="margin-left60">
+                           <p class="text-black">@item.Comments</p>
+                        </div>
+                        var count = 0;
+                        foreach (var subItem in Model.Blogcomments)
+                        {
+                            if (item.CommentId == subItem.ParentId)
+                            {
+                                count++;
+                            }
+                        }
+                        <div class="row">
+                            <div class="col-xs-2 reply-align">
+                                <a href="#" class="text-danger"><span class="badge">@count</span> Replies:</a>
+                            </div>
+                            <div class="col-xs-7 show-reply">
+                                <a href="#" class="text-danger" onclick="deleteComments(@item.CommentId,'@item.CreatedBy')"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="margin-left80">
+                            <h4 class="text-black">Leave a Reply</h4>
+                            @using (Html.BeginForm("SaveBlogComments", "Blog", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "SubmitCommentsReplies" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="ParentID" value="@item.CommentId" />
+                                <input type="hidden" name="BlogId" value="@item.BlogId" />
+                                        <div class="form-group">
+                                            <textarea name="Comments" id="BlogComments" rows="5" cols="80"></textarea>
+                                        </div>
+                                        <button type="submit" id="SubmitReply" class="btn btn-primary">Submit</button>
+                                        <a href="/Blog/SaveBlogComments" id="MyCommentReply"></a>
+                            }
+                        </div>
+                        foreach (var subItem in Model.Blogcomments)
+                        {
+                            if (item.CommentId == subItem.ParentId)
+                            {
+                                <div class="row margin-top2">
+                                    <div class="col-sm-1 margin-left60 ">
+                                        <img class="img-circle" id="ImageView" src="~/Images/ProfileImages/default.png" alt="Avatar" />
+                                    </div>
+                                    <div class="col-xs-8 ">
+                                        <h4 class="align-bottom">@subItem.CreatedBy <small>@item.CreationTime</small></h4>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="margin-left80">
+                                   <p class="text-black">@subItem.Comments</p> 
+                                </div>
+                                <br>
+                            }
+                        }
+                    }
+                }
+            </div>
+        </div>
+        <div class="col-sm-4 sidenav margin-top20">
+            <form action="/Blog/Search" enctype="multipart/form-data" id="RegistrationForm" method="get">
+                <div class="right-inner-addon">
+                    <button type="submit" class="astext"><i class="fa fa-search text-primary"></i></button>
+                    <input id="SearchTag" name="SearchTag" type="text" class="form-control text-center" placeholder="Search Tags Topics or your favourite Bloggers" autocomplete="off">
+                </div>
+            </form>
+            <div class="text-center bg-color margin-top">
+                    <img src="@Model.Users.ImageUrl" alt="img" id="DescriptionImage" />
+                    <div class="card-body">
+                        <h4 class="h54">@Model.Users.Name</h4>
+                        <h5 class="h5">Rank <span class="label label-warning">@Model.BloggerRank</span></h5>
+                        <p>@Model.BloggerDescription</p>
+                        <a href="/Contact/BloggerDetails?id=@Model.BloggeUserId" class="btn btn-primary btn-sm">Profile</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+

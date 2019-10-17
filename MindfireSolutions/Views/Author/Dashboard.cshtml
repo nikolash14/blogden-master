@@ -1,0 +1,107 @@
+﻿@model MindfireSolutions.ViewModel.VMAuthorData
+@using MindfireSolutions.Custom
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-sm-3 col-xs-1" id="SideNav">
+        @Html.Partial("_SideBar", Model)
+    </div>
+    <div class="col-sm-9 col-xs-10" id="DashBoardContainer">
+        <div class="margin-top20">
+            <div class="container">
+                <div id="posts" class="row">
+                    <div id="1" class="item col-md-4">
+                        <div class="well">
+                            <h4>STATS</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item text-primary"><a href="/Author/AllBlogs">Published Posts<span class="label label-info pull-right">@Model.PublishedPostCount</span></a></li>
+                                <li class="list-group-item text-primary">Likes<span class="label label-success pull-right">@Model.LikeCount</span></li>
+                                <li class="list-group-item text-primary">Dislikes<span class="label label-danger pull-right">@Model.DislikeCount</span></li>
+                                <li class="list-group-item text-primary">Spam<span class="label label-danger pull-right">@Model.SpamCount</span></li>
+                                <li class="list-group-item text-primary">Comments<span class="label label-success pull-right">@Model.CommentCount</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="2" class="item col-md-4">
+                        <div class="well">
+                            <h4>QUICK DRAFT</h4>
+                            @using (Html.BeginForm("DraftBlog", "Author", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "Draft" }))
+                            {
+                                <span class="text-danger">@TempData["Message"]</span>
+
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="row mar-bottom20">
+                                    <label for="Topic">Topic:</label>
+                                    <select name="Topic" class="form-control" id="Topic">
+                                        <option value="0">--Select Topic--</option>
+                                        <optgroup label="Topics">
+                                            @{Html.RenderAction("BlogTopic", "Blog");}
+                                        </optgroup>
+                                    </select>
+                                    <label for="SubTopic">Sub-Topic:</label>
+                                    <select name="SubTopic" class="form-control" id="SubTopic">
+                                        <option value="0">--Select Sub-topic--</option>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 form-group">
+                                        <input type="text" class="form-control" id="BlogTitle" name="BlogTitle" value="" placeholder="Enter blog title" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 form-group">
+                                        <textarea class="form-control" rows="4" id="BlogContent" name="BlogContent" value="" placeholder="Blog Content..." autocomplete="off"></textarea>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="UserId" value="@Model.UserId" />
+                                <div class="row form-group">
+                                    <button type="submit" class="pull-right btn btn-info" id="DraftBlog">Save</button>
+                                </div>
+
+                                                }
+                        </div>
+                    </div>
+                    <div id="3" class="item col-md-4">
+                        <div class="well">
+                            <h4>LATEST POSTS BY YOU</h4>
+                            <ul class="list-group">
+                                @foreach (var item in Model.Blog)
+                                {
+                                    <li class="list-group-item text-primary"><a href="/Blog/GetBlogDescription?blogId=@item.BlogId">@item.Title</a></li>
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="4" class="item col-md-4">
+                        <div class="well">
+                            <h4>DRAFTED POSTS</h4>
+                            <ul class="list-group">
+                                @foreach (var item in Model.Drafted)
+                                {
+                                    <li class="list-group-item text-primary"><a href="/Author/EditBlog?blogId=@item.BlogId">@item.Title</a></li>
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="5" class="item col-md-4">
+                        <div class="well">
+                            <h4>ARCHIVED POSTS</h4>
+                            <ul class="list-group">
+                                @foreach (var item in Model.Archived)
+                                {
+                                    <li class="list-group-item text-primary"><a href="/Blog/GetBlogDescription?blogId=@item.BlogId">@item.Title</a></li>
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

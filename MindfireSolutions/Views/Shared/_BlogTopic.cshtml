@@ -1,0 +1,13 @@
+﻿@model IEnumerable<MindfireSolutions.Models.BlogTopic>
+
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        if (item.ParentId == null)
+        {
+           <option value="@item.TopicId">@item.TopicName</option>
+        }
+    }
+}

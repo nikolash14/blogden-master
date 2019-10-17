@@ -1,0 +1,84 @@
+﻿@model MindfireSolutions.ViewModel.VMBloggerDetails
+@using MindfireSolutions.Custom
+@{
+    ViewBag.Title = "BloggerDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-sm-7">
+        <div class="container margin-top20 well">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="d-flex justify-content-center">@Html.Image(Model.User.ImageUrl, "Img", "ProfileImage")</label>
+                    <label class="d-flex justify-content-center">@Model.User.Name</label>
+                </div>
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div class="col-md-4">
+
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-xs-4 bg-color-details">
+                                    <div class="card ">
+                                        <div class="card-header">
+                                            <h5 class="text-center">Blogs</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title text-center">@Model.Blogs.Count</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 bg-color-details">
+                                    <div class="card ">
+                                        <div class="card-header">
+                                            <h5 class="text-center">Likes</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title text-center">@Model.Stats.LikesCount</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 bg-color-details">
+                                    <div class="card ">
+                                        <div class="card-header">
+                                            <h5 class="text-center">Comments</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title text-center">@Model.Stats.CommentsCount</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 bg-color-details">
+                                    <div class="card ">
+                                        <div class="card-header">
+                                            <h5 class="text-center">Rank</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title text-center">1</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-5">
+        <div class="container well margin-top20">
+            <label class="h4"><span class="h2">ARTICLES</span> by @Model.User.Name</label>
+            <ul class="list-group">
+                @foreach (var item in Model.Blogs)
+                {
+                    <li class="list-group-item"><a href="/Blog/GetBlogDescription?blogId=@item.BlogId">@item.Title</a></li>
+                }
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>

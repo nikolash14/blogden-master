@@ -1,0 +1,52 @@
+﻿@model MindfireSolutions.ViewModel.VMEditBlog
+@{
+    ViewBag.Title = "EditBlog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-xs-3" id="SideNav">
+        @Html.Partial("_SideBar", Model)
+    </div>
+    <div class="col-xs-9">
+        <div class="margin-top20">
+            <div class="container">
+                @using (Html.BeginForm("EditBlog", "Author", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "PostBlog" }))
+                {
+                    <span class="text-danger text-center">@TempData["Message"]</span>
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <input type="hidden" value="@Model.TagId" name="TagId" />
+                        <input type="hidden" value="@Model.BlogId" name="BlogId" />
+                        <input type="hidden" value="@Model.Email" name="Email" />
+                        <div class="row">
+                            <label for="Title">Title:</label>
+                            <input type="text" value="@Model.BlogTitle" name="BlogTitle" class="form-control" />
+                        </div>
+                        <input type="hidden" name="BlogDescription" value="@Model.BlogDescription" id="BlogEditDescription" />
+                        <div class="row">
+                            <label>Description:</label>
+                            <div class="bg-white">
+                                <div class="container" id="EditoArea">
+                                    <div id="Toolbar"></div>
+                                    <div id="EditorArea">
+                                        <div id="Editor"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <input type="text" value="@Model.TagTitle" name="TagTitle" class="form-control" />
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-offset-9 margin-top20">
+                                <button type="submit" class="btn btn-success btn-block" id="EditedBlogDocument">Save Blog</button>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>

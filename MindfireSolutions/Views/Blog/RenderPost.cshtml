@@ -1,0 +1,76 @@
+﻿@model IEnumerable<MindfireSolutions.Models.Blog>
+
+@{
+    ViewBag.Title = "RenderPost";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div>
+        @if (Model.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+                <div class="row margin-top20">
+                    <div class="col-xs-8">
+                        <h2 class="topic-name">Result For @item.BlogTopic.TopicName...</h2>
+                    </div>
+                    <div class="col-xs-4">
+                        @using (Html.BeginForm("Search", "Blog", FormMethod.Get, new { @enctype = "multipart/form-data", @id = "RegistrationForm" }))
+                        {
+                            <div class="right-inner-addon">
+                                <button type="submit" class="astext"><i class="fa fa-search text-primary"></i></button>
+                                <input id="SearchTag" name="SearchTag" type="text" class="form-control text-center" placeholder="Search Tags Topics or your favourite Bloggers" autocomplete="off" />
+                            </div>
+                        }
+
+                    </div>
+                </div>
+                break;
+            }
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8  blog-align">
+                        @foreach (var item in Model)
+                        {
+                            <p class="text-info margin-top2"><a href="/Blog/GetBlogDescription?blogId=@item.BlogId" class="font15"> @item.Title</a></p>
+                            <div class="minimize-text"><a href="/Blog/GetBlogDescription?blogId=@item.BlogId">@Html.Raw(System.Web.HttpUtility.HtmlDecode(item.Description))</a></div>
+                                <div class="col-sm-offset-8">
+                                    <ul class="blog-display">
+                                        <li>Blogger Name : <a href="/Author/Dashboard"><span class="decorate">@item.User.Name</span></a></li>
+                                        <li>Created On :<span>@item.CreationTime</span></li>
+                                    </ul>
+                                </div>
+                                <hr />
+                        }
+                    </div>
+                    <div class="col-sm-4 margin-top20">
+                        <h3 class="h3 text-primary text-center">Related Topics</h3>
+                        <hr/>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-xs-8">
+                    <h2 class="topic-name">No Results Found ...</h2>
+                </div>
+                <div class="col-xs-4 margin-top20 margin-bottom20">
+                    @using (Html.BeginForm("Search", "Blog", FormMethod.Get, new { @enctype = "multipart/form-data", @id = "RegistrationForm" }))
+                    {
+                        <div class="right-inner-addon">
+                            <button type="submit" class="astext"><i class="fa fa-search text-primary"></i></button>
+                            <input id="SearchTag" name="SearchTag" type="text" class="form-control text-center" placeholder="Search Tags Topics or your favourite Bloggers" autocomplete="off" />
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+        }
+    </div>
+
+
+</div>

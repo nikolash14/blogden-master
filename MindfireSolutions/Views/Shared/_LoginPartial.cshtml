@@ -1,0 +1,21 @@
+﻿<div id="LoginPartial">
+    @if (Request.IsAuthenticated)
+    {
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Hello " + User.Identity.Name + "!", "Dashboard", "Author", new { email = User.Identity.Name }, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="/Register/UserLogout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+
+        </ul>
+        <input type="hidden" value="@User.Identity.Name" id="GetEmail" />
+    }
+    else
+    {
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/Register/UserRegistration"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#UserLogin"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+    }
+</div>
+

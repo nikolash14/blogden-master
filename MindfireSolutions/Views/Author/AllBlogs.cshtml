@@ -1,0 +1,42 @@
+﻿@model MindfireSolutions.ViewModel.VMAllBlog
+
+@{
+    ViewBag.Title = "AllBlogs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-xs-3" id="SideNav">
+        @Html.Partial("_SideBar", Model)
+    </div>
+    <div class="col-xs-9">
+        <div class="margin-top20">
+            <div class="container">
+                @foreach (var item in Model.Blogs)
+                {
+                    if (item.BlogStatus == 1)
+                    {
+                        <a href="/Blog/GetBlogDescription?blogId=@item.BlogId" class="text-primary h5"><i class="fa fa-check-circle text-success"></i> @item.Title</a><span class="pull-right"><a href="/Author/ArchiveBlog?blogId=@item.BlogId" onclick="return confirm('The Blog will no Longer Display to Others !')">Archive</a> | <a href="/Author/EditBlog?blogId=@item.BlogId">Edit</a> | <a href="/Author/DeleteBlog?blogId=@item.BlogId" onclick="return alert('This post will be deleted forever Press ok to confirm')">Delete</a></span>
+                            <br />
+                            <code class="pull-left">@item.CreationTime</code>
+                            <hr />
+                    }
+                    else if (item.BlogStatus == 2)
+                    {
+                        <a href="/Blog/GetBlogDescription?blogId=@item.BlogId" class="text-primary h5"><i class="fa fa-upload text-danger"></i> @item.Title</a><span class="pull-right"><a href="/Author/ExtractBlog?blogId=@item.BlogId" onclick="return confirm('The Blog will be Displyed to Everyone !')">Extract</a> | <a href="/Author/EditBlog?blogId=@item.BlogId">Edit</a> | <a href="/Author/DeleteBlog?blogId=@item.BlogId" onclick="return alert('This post will be deleted forever Press ok to confirm')">Delete</a></span>
+                            <br />
+                            <code class="pull-left">@item.CreationTime</code>
+                            <hr />
+                    }
+                    else
+                    {
+                        <a href="/Blog/GetBlogDescription?blogId=@item.BlogId" class="text-primary h5"><i class="fa fa-edit text-primary"></i> @item.Title</a> <span class="pull-right">| <a href="/Author/EditBlog?blogId=@item.BlogId">Edit</a> | <a href="/Author/DeleteBlog?blogId=@item.BlogId" onclick="return alert('This post will be deleted forever Press ok to confirm')">Delete</a></span>
+                            <br />
+                            <code class="pull-left">@item.CreationTime</code>
+                            <hr />
+                    }
+
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+﻿<nav class="navbar navbar-default sidebar" role="navigation" id="SideNavHeight">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li class="active" id="SideNavbarImageControl"><a class="nav-icon-user" href="#"><img src="@Model.UserImage" alt="img" id="DashboardImage" /> <label> @Model.Name</label></a></li>
+            <li class="divider"></li>
+            <li><a href="/Author/Dashboard">Dashboard<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-home"></span></a></li>
+            <li class="divider"></li>
+            <li><a href="/Author/AuthorProfile">Profile<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-user"></span></a></li>
+            <li class="divider"></li>
+            <li class="divider"></li>
+            <li><a href="/Blog/PostBlog">Create Blog<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-edit"></span></a></li>
+            <li class="divider"></li>
+            <li><a href="/Author/EditProfile">Edit Profile<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-edit"></span></a></li>
+            <li class="divider"></li>
+            <li><a href="/Author/PersonalDetails">Add Personal Details<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-home"></span></a></li>
+            <li class="divider"></li>
+            <li><a href="/Auther/Delete" onclick="return confirm('Are you sure want to Delete your Account ?')">Delete Account<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-trash"></span></a></li>
+            <li class="divider"></li>
+            <li><a href="/Author/AllBlogs">Your Blogs<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-check"></span></a></li>
+            <li class="divider"></li>
+            <li><a href="/Author/AllArchivedBlog">Archived Blogs<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-download-alt"></span></a></li>
+            <li class="divider"></li>
+            <li><a href="/Author/AllDraftedContent">Drafted Contents<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-bookmark"></span></a></li>
+            <li class="divider"></li>
+            <li><a href="/Author/Chart">Charts<span style="font-size:16px;" class="pull-right showopacity fa fa-line-chart"></span></a></li>
+            <li class="divider"></li>
+            <li><a href="#">Settings<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-cog"></span></a></li>
+        </ul>
+    </div>
+</nav>
+

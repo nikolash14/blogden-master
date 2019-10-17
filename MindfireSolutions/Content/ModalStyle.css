@@ -1,0 +1,23 @@
+.modal-title{
+    color:forestgreen;
+    /* font-weight:600; */
+    font-size:;
+}
+.control-label{
+    font-size:17px;
+    color: #9a9a9a;
+    margin-left:10px;
+    margin-bottom:2%;
+}
+.modal-form-control{
+    background-color:#333;
+    color:white;
+    border: 1px solid #ccc;
+}
+.comment-control{
+    background-color:#333;
+    color:white;
+    border: 1px solid #ccc;
+    border-radius:10px;
+}
+

@@ -1,0 +1,159 @@
+﻿@model MindfireSolutions.ViewModel.VMUser
+@using MindfireSolutions.Custom
+
+@{
+    ViewBag.Title = "UserRegistration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="registration-bgImage">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                @using (Html.BeginForm("UserRegistration", "Register", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "RegistrationForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="container">
+                        <h1 class="text-center text-white">Register Here</h1>
+                        <hr />
+                        <marquee class="text-red" behavior="alternate">All asterisk(*) fields are Mandatory !</marquee>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="row margin-top20">
+                            <div class="form-group">
+                                <div class="col-md-4 col-sm-3 text-right">
+                                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label text-white" })<span class="error">*</span>
+                                </div>
+
+                                <div class="input-group  col-md-8 col-sm-9">
+                                    <div class="inner-addon left-addon">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your Name." } })
+                                    </div>
+                                </div>
+                                <div class="col-sm-offset-4 col-xs">
+                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row margin-top20">
+                            <div class="form-group">
+                                <div class="col-md-4 col-sm-3 text-right">
+                                    @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "control-label text-white" })
+                                </div>
+                                <div class="input-group col-md-8 col-sm-9">
+                                    <div class="inner-addon left-addon">
+                                        <i class="glyphicon glyphicon-phone"></i>
+                                        @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your Mobile number." } })
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-offset-4 col-xs">
+                                    @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row margin-top20">
+                            <div class="form-group">
+                                <div class="col-md-4 col-sm-3 text-right">
+                                    @Html.Label("Image", htmlAttributes: new { @class = "control-label text-white" })<span class="image-size text-white">(Max-500KB)</span>
+                                </div>
+                                <div class="col-md-8 col-sm-9">
+                                    <div class="input-group">
+                                        @Html.FileFor("ImageUpload", "ImageUpload")
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row margin-top20">
+                            <div class="form-group">
+                                <div class="col-md-4 col-sm-3 text-right">
+                                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label text-white" })<span class="error">*</span>
+                                </div>
+                                <div class="input-group col-md-8 col-sm-9">
+                                    <div class="inner-addon left-addon">
+                                        <i class="glyphicon glyphicon-envelope"></i>
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your Email." } })
+                                    </div>
+                                </div>
+                                <div class="col-sm-offset-4  col-xs">
+                                    <span id="EmailNotAvailable" class="font-weight"></span>
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row margin-top20">
+                            <div class="form-group">
+                                <div class="col-md-4 col-sm-3 text-right">
+                                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label text-white" })<span class="error">*</span>
+                                </div>
+                                <div class="input-group col-md-8 col-sm-9">
+                                    <div class="inner-addon left-addon">
+                                        <i class="glyphicon glyphicon-lock"></i>
+                                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Enter your password." })
+                                    </div>
+                                </div>
+                                <div class="col-sm-offset-4 col-xs">
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row margin-top20">
+                            <div class="form-group">
+                                <div class="col-md-4 col-sm-3 text-right">
+                                    <label class="control-label  text-white" id="ConfirmPassword">Confirm Password<span class="error">*</span></label>
+                                </div>
+
+                                <div class="input-group col-md-8 col-sm-9">
+                                    <div class="inner-addon left-addon">
+                                        <i class="glyphicon glyphicon-repeat"></i>
+                                        @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", placeholder = "Re-type your password." })
+                                    </div>
+                                </div>
+                                <div class="col-sm-offset-4 col-xs">
+                                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row margin-top20 mar-bottom20">
+                            <div class="col-sm-8">
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="submit" value="Register" class="btn btn-danger btn-block" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-sm-4">
+                <div class="row margin-top20">
+                    <img src="/Images/ContentImages/mindfire.jpg" style="height:120px !important;" />
+                </div>
+                <div class="row margin-top20 mar-bottom20">
+                    <h2 class="text-white">Social Login</h2>
+                    <hr />
+                    <div class="row mar-bottom20 margin-top20" data-andown="fadeIn" data-animation="animation">
+                        <div class="col-sm-12 text-center">
+                            <ul class="social-network social-circle">
+                                <li><a href="#" class="icoFacebook fb-color" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" class="icoTwitter twitter-color" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#" class="icoGoogle google-color" title="Google"><i class="fa fa-google"></i></a></li>
+                                <li><a href="#" class="icoLinkedin linkedin-color" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<MindfireSolutions.Models.BlogTopic>
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        var topicName = item.TopicName;
+        if (item.ParentId == null)
+        {
+            <li class="topic-hover">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">@topicName<span class="caret-right"></span></a>
+                <ul class="dropdown-menu">
+                    @foreach (var subItem in Model)
+                    {
+                        if (item.TopicId == subItem.ParentId)
+                        {
+                            <li><a href="/Blog/RenderPost?topicId=@subItem.TopicId">@subItem.TopicName</a></li>
+                        }
+                    }
+                </ul>
+            </li>
+        }
+    }
+}

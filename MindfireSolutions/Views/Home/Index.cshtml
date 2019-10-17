@@ -1,0 +1,116 @@
+﻿@model MindfireSolutions.ViewModel.VMIndex
+@{
+    ViewBag.Title = "Index";
+}
+<div id="MyCarousel" class="carousel slide title-image" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#MyCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#MyCarousel" data-slide-to="1"></li>
+        <li data-target="#MyCarousel" data-slide-to="2"></li>
+        <li data-target="#MyCarousel" data-slide-to="3"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="~/Images/ContentImages/blog-laptop.jpg" alt="img">
+        </div>
+        <div class="item">
+            <img src="~/Images/ContentImages/blog-4.jpeg" alt="img">
+        </div>
+        <div class="item">
+            <img src="~/Images/ContentImages/blogjpg.jpg" alt="img">
+        </div>
+        <div class="item">
+            <img src="~/Images/ContentImages/Blogging-1.png" alt="img">
+        </div>
+    </div>
+</div>
+
+<!-- Static Content for Corousels-->
+<div class="main-text">
+    <div class="container">
+        <div class="row">
+            <h2 class="text-center slider-text">Welcome to Blog<span class="text-brand">Den</span> !</h2>
+        </div>
+        <div class="row">
+            <h5 class="text-center caption-text">Be a Blogger,Reader or Both</h5>
+        </div>
+        <div class="row margin-top">
+            <div class="col-sm-6">
+                @using (Html.BeginForm("Search", "Blog", FormMethod.Get, new { @enctype = "multipart/form-data", @id = "RegistrationForm" }))
+                {
+                    <div class="input-width">
+                        <div class="right-inner-addon">
+                            <button type="submit" class="astext"><i class="fa fa-search text-primary"></i></button>
+                            <input id="SearchTag" name="SearchTag" type="text" class="form-control text-center" placeholder="Search Tags Topics or your favourite Bloggers" autocomplete="off" />
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-sm-6">
+                <button type="button" class="btn btn-success btn-block btn-lg form-control" id="CreateBlog">Create Blog</button>
+                <a href="/Blog/PostBlog" id="MyBlog"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="hot-topic-background">
+    <div class="container">
+        <div class="row margin-top20 mar-bottom20">
+            <marquee behavior="alternate" class="text-hot-topic" onmouseover="this.stop()" onmouseout="this.start()">
+                <span class="h3"> Hot Topic<i class="fa fa-bullhorn"></i> </span>
+                @if (Model.HotTopic != null)
+                {
+                    <a href="/Blog/GetBlogDescription?blogId=@Model.HotTopic.BlogId"> @Model.HotTopic.Title</a>
+                }
+            </marquee>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 mar-bottom20">
+                <div class="row">
+                    <img src="/Images/ContentImages/mindfire.jpg" style="height:120px !important;" />
+                </div>
+                <div class="row">
+                    <h2 class="heading-text">Just Published</h2>
+                    <hr />
+                </div>
+                <div class="row">
+                    @foreach (var justPublish in Model.LatestTopic)
+                    {
+                        if (justPublish != null)
+                        {
+                            <div class="col-sm-12">
+                                <p><i class="fa fa-rss text-danger" aria-hidden="true"></i>@Html.ActionLink(justPublish.Title, "GetBlogDescription", "Blog", new { justPublish.BlogId }, new { @class = "text-size16 latest-text" })</p>
+                                <span class="col-sm-offset-8 text-info">@justPublish.CreationTime</span>
+                                <hr />
+                            </div>
+                        }
+
+                    }
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <h2 class="heading-text">Trending Topics</h2>
+                <hr />
+                <marquee direction="up" onmouseover="this.stop()" onmouseout="this.start()">
+                    @foreach (var item in Model.TrendingTopic)
+                    {
+                        if (item != null)
+                        {
+                            <div class="row">
+                                <h5 class="text-white">@item.Title</h5>
+                            </div>
+                        }
+
+                    }
+
+                </marquee>
+
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,13 @@
+
+#ProfileContainer{
+    background-color:#e8f2f3;
+}
+#ProfileImage{
+    width:140px !important;
+    height:150px !important;
+    border-radius:4px!important;
+    float:right;
+}
+.text-black{
+    color:#312f2f !important;
+}

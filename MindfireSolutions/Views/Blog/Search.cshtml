@@ -1,0 +1,40 @@
+﻿﻿@model MindfireSolutions.ViewModel.VMSearchedBlog
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-xs-8 margin-top">
+        <div class="container">
+            <label class="text-danger h3 margin-left30">Result for "@ViewBag.Message" ...</label>
+            <div class="container margin-left30">
+                @foreach (var item in Model.Blogs)
+                {
+                    <h4><a href="/Blog/GetBlogDescription?blogId=@item.BlogId">@item.Title</a></h4>
+                    <code>
+                        @item.CreatedBy
+                        <br />
+                        @item.CreationTime
+                    </code>
+                    <hr />
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <div class="container margin-bottom20">
+            <div class="row margin-top20 ">
+                @using (Html.BeginForm("Search", "Blog", FormMethod.Get, new { @enctype = "multipart/form-data", @id = "RegistrationForm" }))
+                {
+                    <div class="input-width">
+                        <div class="right-inner-addon">
+                            <button type="submit" class="astext"><i class="fa fa-search text-primary"></i></button>
+                            <input id="SearchTag" name="SearchTag" type="text" class="form-control text-center" placeholder="Search Tags Topics or your favourite Bloggers" autocomplete="off" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
